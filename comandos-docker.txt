@@ -10,6 +10,9 @@ docker run --name sales-db -p 27017:27017 -p 28017:28017 -e MONGODB_DATABASE="sa
 Criando o container/imagem do RABBITMQ
 docker run --name sales_rabbit -p 5672:5672 -p 25676:25676 -p 15672:15672 rabbitmq:3-management
 
+Rodando a aplicação
+	docker run --name auth-api -p 8080:8080 auth-api
+
 Iniciando o servoço do MONGODB
 net start MongoDB
 URL de conexão do MONGODB
@@ -24,6 +27,8 @@ docker container stop "nome do container ex: product-db"
 Remove todos os container que estão parados
 docker container prune
 
-
 Rodando o docker compose
 	docker-compose up --build
+	
+Fazendo o build da imagem	
+	docker image build -t "nome da imagem/auth-api" .
