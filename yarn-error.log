@@ -1,0 +1,27 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\rroberto\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add jsonwebtoke
+
+PATH: 
+  C:\Program Files\Eclipse Foundation\jdk-11.0.12.7-hotspot\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\windows\System32\OpenSSH\;C:\PROGRA~2\E!PC;C:\Program Files (x86)\cvsnt;C:\Program Files\Micro Focus\StarTeam SDK 16.0\lib;C:\Program Files\Micro Focus\StarTeam SDK 16.0\bin;C:\Program Files\Git\cmd;C:\apache-maven-3.8.3\bin;C:\Program Files\nodejs\;C:\Users\rroberto\Documents\flutter\bin;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Users\rroberto\AppData\Local\Programs\mongosh\;C:\Users\rroberto\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\rroberto\AppData\Local\Programs\Python\Python310\;C:\Users\rroberto\AppData\Local\Microsoft\WindowsApps;C:\Users\rroberto\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\rroberto\AppData\Roaming\npm;C:\Program Files\JetBrains\PyCharm Community Edition 2021.3.3\bin;;C:\Users\rroberto\AppData\Local\GitHubDesktop\bin;C:\Users\rroberto\AppData\Local\Programs\mongosh\
+
+Yarn version: 
+  1.22.15
+
+Node version: 
+  16.13.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: connect ETIMEDOUT 200.155.91.59:8443
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1161:16)
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
