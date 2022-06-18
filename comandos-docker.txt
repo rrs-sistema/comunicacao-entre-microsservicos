@@ -1,14 +1,14 @@
 Criando o container/imagem  do banco de dados auth-db
-docker run --name auth-db -p 5432:5432 -e POSTGRES_DB=auth-db -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=123456 postgres:14
+	docker run --name auth-db -p 5432:5432 -e POSTGRES_DB=auth-db -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=123456 postgres:14
 
 Criando o container/imagem  do banco de dados product-db
-docker run --name product-db -p 5433:5432 -e POSTGRES_DB=product-db -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=123456 postgres:14
+	docker run --name product-db -p 5433:5432 -e POSTGRES_DB=product-db -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=123456 postgres:14
 
 Criando o container/imagem do banco de dados sales-db do MONGODB
-docker run --name sales-db -p 27017:27017 -p 28017:28017 -e MONGODB_DATABASE="sales" -e MONGODB_USER="admin" -e MONGODB_PASS="123456" tutum/mongodb
+	docker run --name sales-db -p 27017:27017 -p 28017:28017 -e MONGODB_DATABASE="sales" -e MONGODB_USER="admin" -e MONGODB_PASS="123456" tutum/mongodb
 
 Criando o container/imagem do RABBITMQ
-docker run --name sales_rabbit -p 5672:5672 -p 25676:25676 -p 15672:15672 rabbitmq:3-management
+	docker run --name sales_rabbit -p 5672:5672 -p 25676:25676 -p 15672:15672 rabbitmq:3-management
 
 Rodando a aplicação
 	docker run --name auth-api -p 8080:8080 auth-api
@@ -19,13 +19,13 @@ URL de conexão do MONGODB
 		mongosh "mongodb://127.0.0.1:27017/sales" ou mongosh "mongodb://admin:123456@localhost:27017/sales"
 
 Listar todos os containers que estão rodando
-docker ps
+	docker ps
 
 Parando a execução de um container
-docker container stop "nome do container ex: product-db" 
+	docker container stop "nome do container ex: product-db" 
 
 Remove todos os container que estão parados
-docker container prune
+	docker container prune
 
 Rodando o docker compose
 	docker-compose up --build
