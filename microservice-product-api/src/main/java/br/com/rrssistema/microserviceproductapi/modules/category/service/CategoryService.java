@@ -6,7 +6,7 @@ import br.com.rrssistema.microserviceproductapi.modules.category.dto.CategoryReq
 import br.com.rrssistema.microserviceproductapi.modules.category.dto.CategoryResponse;
 import br.com.rrssistema.microserviceproductapi.modules.category.model.Category;
 import br.com.rrssistema.microserviceproductapi.modules.category.repository.CategoryRepository;
-import br.com.rrssistema.microserviceproductapi.modules.produto.service.ProductService;
+import br.com.rrssistema.microserviceproductapi.modules.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

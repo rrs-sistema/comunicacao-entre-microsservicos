@@ -2,7 +2,7 @@ package br.com.rrssistema.microserviceproductapi.modules.supplier.service;
 
 import br.com.rrssistema.microserviceproductapi.config.exception.SuccessResponse;
 import br.com.rrssistema.microserviceproductapi.config.exception.ValidationException;
-import br.com.rrssistema.microserviceproductapi.modules.produto.service.ProductService;
+import br.com.rrssistema.microserviceproductapi.modules.product.service.ProductService;
 import br.com.rrssistema.microserviceproductapi.modules.supplier.dto.SupplierRequest;
 import br.com.rrssistema.microserviceproductapi.modules.supplier.dto.SupplierResponse;
 import br.com.rrssistema.microserviceproductapi.modules.supplier.model.Supplier;

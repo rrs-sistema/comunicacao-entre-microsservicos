@@ -1,7 +1,7 @@
-package br.com.rrssistema.microserviceproductapi.modules.produto.dto;
+package br.com.rrssistema.microserviceproductapi.modules.product.dto;
 
 import br.com.rrssistema.microserviceproductapi.modules.category.model.Category;
-import br.com.rrssistema.microserviceproductapi.modules.produto.model.Product;
+import br.com.rrssistema.microserviceproductapi.modules.product.model.Product;
 import br.com.rrssistema.microserviceproductapi.modules.supplier.model.Supplier;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;

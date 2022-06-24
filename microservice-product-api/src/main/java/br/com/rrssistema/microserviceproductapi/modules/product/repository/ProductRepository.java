@@ -1,6 +1,6 @@
-package br.com.rrssistema.microserviceproductapi.modules.produto.repository;
+package br.com.rrssistema.microserviceproductapi.modules.product.repository;
 
-import br.com.rrssistema.microserviceproductapi.modules.produto.model.Product;
+import br.com.rrssistema.microserviceproductapi.modules.product.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

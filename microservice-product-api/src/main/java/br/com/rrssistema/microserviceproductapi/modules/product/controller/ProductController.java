@@ -1,9 +1,9 @@
-package br.com.rrssistema.microserviceproductapi.modules.produto.controller;
+package br.com.rrssistema.microserviceproductapi.modules.product.controller;
 
 import br.com.rrssistema.microserviceproductapi.config.exception.SuccessResponse;
-import br.com.rrssistema.microserviceproductapi.modules.produto.dto.ProductRequest;
-import br.com.rrssistema.microserviceproductapi.modules.produto.dto.ProductResponse;
-import br.com.rrssistema.microserviceproductapi.modules.produto.service.ProductService;
+import br.com.rrssistema.microserviceproductapi.modules.product.dto.ProductRequest;
+import br.com.rrssistema.microserviceproductapi.modules.product.dto.ProductResponse;
+import br.com.rrssistema.microserviceproductapi.modules.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

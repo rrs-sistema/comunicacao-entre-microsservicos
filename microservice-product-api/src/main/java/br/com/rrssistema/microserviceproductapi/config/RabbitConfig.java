@@ -23,7 +23,7 @@ public class RabbitConfig {
     private String salesConfirmationKey;
 
     @Value("${app-config.rabbit.queue.product-stock}")
-    private String productSotckMq;
+    private String productStockMq;
 
     @Value("${app-config.rabbit.queue.sales-confirmation}")
     private String salesConfirmationMq;
@@ -35,7 +35,7 @@ public class RabbitConfig {
 
     @Bean
     public Queue productSotckMq() {
-        return new Queue(productSotckMq, true);
+        return new Queue(productStockMq, true);
     }
 
     @Bean

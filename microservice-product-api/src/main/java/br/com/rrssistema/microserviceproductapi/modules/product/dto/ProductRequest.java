@@ -1,6 +1,6 @@
-package br.com.rrssistema.microserviceproductapi.modules.produto.dto;
+package br.com.rrssistema.microserviceproductapi.modules.product.dto;
 
-import br.com.rrssistema.microserviceproductapi.modules.produto.model.Product;
+import br.com.rrssistema.microserviceproductapi.modules.product.model.Product;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;

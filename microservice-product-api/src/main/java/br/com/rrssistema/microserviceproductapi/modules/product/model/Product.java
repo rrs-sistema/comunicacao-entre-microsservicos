@@ -1,7 +1,7 @@
-package br.com.rrssistema.microserviceproductapi.modules.produto.model;
+package br.com.rrssistema.microserviceproductapi.modules.product.model;
 
 import br.com.rrssistema.microserviceproductapi.modules.category.model.Category;
-import br.com.rrssistema.microserviceproductapi.modules.produto.dto.ProductRequest;
+import br.com.rrssistema.microserviceproductapi.modules.product.dto.ProductRequest;
 import br.com.rrssistema.microserviceproductapi.modules.supplier.model.Supplier;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -53,6 +53,10 @@ public class Product {
                 .supplier(supplier)
                 .category(category)
                 .build();
+    }
+
+    public void updateStock(Integer quantity) {
+        quantityAvailable = quantityAvailable - quantity;
     }
 
 }
