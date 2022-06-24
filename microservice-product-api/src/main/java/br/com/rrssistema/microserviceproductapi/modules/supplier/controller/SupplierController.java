@@ -1,5 +1,6 @@
 package br.com.rrssistema.microserviceproductapi.modules.supplier.controller;
 
+import br.com.rrssistema.microserviceproductapi.config.exception.SuccessResponse;
 import br.com.rrssistema.microserviceproductapi.modules.supplier.dto.SupplierRequest;
 import br.com.rrssistema.microserviceproductapi.modules.supplier.dto.SupplierResponse;
 import br.com.rrssistema.microserviceproductapi.modules.supplier.service.SupplierService;
@@ -15,17 +16,22 @@ public class SupplierController {
     @Autowired
     private SupplierService supplierService;
 
-    @PostMapping("/save")
+    @PostMapping
     private SupplierResponse save(@RequestBody SupplierRequest request) {
         return supplierService.save(request);
     }
 
-    @GetMapping("/all")
+    @DeleteMapping("{id}")
+    public SuccessResponse delete(@PathVariable Integer id) {
+        return supplierService.delete(id);
+    }
+
+    @GetMapping
     public List<SupplierResponse> findAll() {
         return supplierService.findByAll();
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("{id}")
     public SupplierResponse findById(@PathVariable Integer id) {
         return supplierService.findByIdResponse(id);
     }

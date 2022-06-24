@@ -1,5 +1,6 @@
 package br.com.rrssistema.microserviceproductapi.modules.produto.controller;
 
+import br.com.rrssistema.microserviceproductapi.config.exception.SuccessResponse;
 import br.com.rrssistema.microserviceproductapi.modules.produto.dto.ProductRequest;
 import br.com.rrssistema.microserviceproductapi.modules.produto.dto.ProductResponse;
 import br.com.rrssistema.microserviceproductapi.modules.produto.service.ProductService;
@@ -18,6 +19,11 @@ public class ProductController {
     @PostMapping("/save")
     private ProductResponse save(@RequestBody ProductRequest request) {
         return productService.save(request);
+    }
+
+    @DeleteMapping("{id}")
+    public SuccessResponse delete(@PathVariable Integer id) {
+        return productService.delete(id);
     }
 
     @GetMapping("/all")

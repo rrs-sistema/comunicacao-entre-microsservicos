@@ -1,6 +1,8 @@
 package br.com.rrssistema.microserviceproductapi.modules.supplier.service;
 
+import br.com.rrssistema.microserviceproductapi.config.exception.SuccessResponse;
 import br.com.rrssistema.microserviceproductapi.config.exception.ValidationException;
+import br.com.rrssistema.microserviceproductapi.modules.produto.service.ProductService;
 import br.com.rrssistema.microserviceproductapi.modules.supplier.dto.SupplierRequest;
 import br.com.rrssistema.microserviceproductapi.modules.supplier.dto.SupplierResponse;
 import br.com.rrssistema.microserviceproductapi.modules.supplier.model.Supplier;
@@ -17,6 +19,8 @@ import static org.springframework.util.StringUtils.hasText;
 public class SupplierService {
     @Autowired
     private SupplierRepository supplierRepository;
+    @Autowired
+    private ProductService productService;
 
     public SupplierResponse findByIdResponse(Integer id) {
         return SupplierResponse.of(findById(id));
@@ -43,9 +47,7 @@ public class SupplierService {
     }
 
     public Supplier findById(Integer id) {
-        if(id == null) {
-            throw new ValidationException("The supplier ID must be informed.");
-        }
+        validateInformedId(id);
         return supplierRepository.findById(id)
                 .orElseThrow(() -> new ValidationException("There's no supplier for given ID."));
     }
@@ -59,6 +61,21 @@ public class SupplierService {
     private void validateSupplierNameInformed(SupplierRequest request) {
         if(!hasText(request.getName())) {
             throw new ValidationException("The supplier's name was not informed.");
+        }
+    }
+
+    public SuccessResponse delete(Integer id) {
+        validateInformedId(id);
+        if(productService.existsBySupplierId(id)){
+            throw new ValidationException("You cannot delete this supplier because it's already defined by a product.");
+        }
+        supplierRepository.deleteById(id);
+        return SuccessResponse.create("The supplier ID must be informed");
+    }
+
+    private void validateInformedId(Integer id) {
+        if(id == null) {
+            throw new ValidationException("The supplier ID must be informed.");
         }
     }
 }

@@ -1,5 +1,6 @@
 package br.com.rrssistema.microserviceproductapi.modules.category.controller;
 
+import br.com.rrssistema.microserviceproductapi.config.exception.SuccessResponse;
 import br.com.rrssistema.microserviceproductapi.modules.category.dto.CategoryRequest;
 import br.com.rrssistema.microserviceproductapi.modules.category.dto.CategoryResponse;
 import br.com.rrssistema.microserviceproductapi.modules.category.service.CategoryService;
@@ -15,9 +16,14 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @PostMapping("/save")
+    @PostMapping("")
     private CategoryResponse save(@RequestBody CategoryRequest request) {
         return categoryService.save(request);
+    }
+
+    @DeleteMapping("{id}")
+    public SuccessResponse delete(@PathVariable Integer id) {
+        return categoryService.delete(id);
     }
 
     @GetMapping("/all")

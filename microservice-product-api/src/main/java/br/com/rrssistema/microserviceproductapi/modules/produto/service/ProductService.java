@@ -1,5 +1,6 @@
 package br.com.rrssistema.microserviceproductapi.modules.produto.service;
 
+import br.com.rrssistema.microserviceproductapi.config.exception.SuccessResponse;
 import br.com.rrssistema.microserviceproductapi.config.exception.ValidationException;
 import br.com.rrssistema.microserviceproductapi.modules.category.service.CategoryService;
 import br.com.rrssistema.microserviceproductapi.modules.produto.dto.ProductRequest;
@@ -73,9 +74,7 @@ public class ProductService {
     }
 
     public Product findById(Integer id){
-        if(id == null) {
-            throw new ValidationException("The product ID must be informed.");
-        }
+        validateInformedId(id);
         return productRepository.findById(id)
                 .orElseThrow(() -> new ValidationException("There's no product for given ID."));
     }
@@ -90,6 +89,19 @@ public class ProductService {
         var productRequest = Product.of(request, supplier, category);
         var product  = productRepository.save(productRequest);
         return ProductResponse.of(product);
+    }
+
+    public SuccessResponse delete(Integer id) {
+        validateInformedId(id);
+        productRepository.deleteById(id);
+        return SuccessResponse.create("The product ID must be informed");
+    }
+
+    public Boolean existsByCategoryId(Integer id) {
+        return productRepository.existsByCategoryId(id);
+    }
+    public Boolean existsBySupplierId(Integer id) {
+        return productRepository.existsBySupplierId(id);
     }
 
     private void validateProductDataInformed(ProductRequest request) {
@@ -110,6 +122,12 @@ public class ProductService {
         }
         if(request.getSupplierId() == null) {
             throw new ValidationException("The supplier ID was not informed.");
+        }
+    }
+
+    private void validateInformedId(Integer id) {
+        if(id == null) {
+            throw new ValidationException("The product ID must be informed.");
         }
     }
 
