@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.springframework.util.StringUtils.hasText;
+import static org.springframework.util.ObjectUtils.isEmpty;
 
 @Service
 public class SupplierService {
@@ -35,7 +35,7 @@ public class SupplierService {
     }
 
     public List<SupplierResponse> findByName(String name) {
-        if(!hasText(name)) {
+        if(isEmpty(name)) {
             throw new ValidationException("The supplier name must be informed.");
         }
         return supplierRepository
@@ -77,13 +77,13 @@ public class SupplierService {
     }
 
     private void validateSupplierNameInformed(SupplierRequest request) {
-        if(!hasText(request.getName())) {
+        if(isEmpty(request.getName())) {
             throw new ValidationException("The supplier's name was not informed.");
         }
     }
 
     private void validateInformedId(Integer id) {
-        if(id == null) {
+        if(isEmpty(id)) {
             throw new ValidationException("The supplier ID must be informed.");
         }
     }

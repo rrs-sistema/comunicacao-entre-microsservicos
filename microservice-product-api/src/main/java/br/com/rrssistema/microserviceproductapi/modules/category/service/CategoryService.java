@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.springframework.util.StringUtils.hasText;
+import static org.springframework.util.ObjectUtils.isEmpty;
 
 @Service
 public class CategoryService {
@@ -35,7 +35,7 @@ public class CategoryService {
     }
 
     public List<CategoryResponse> findByDescription(String description) {
-        if(!hasText(description)) {
+        if(isEmpty(description)) {
             throw new ValidationException("The category description must be informed.");
         }
         return categoryRepository
@@ -77,13 +77,13 @@ public class CategoryService {
     }
 
     private void validateInformedId(Integer id) {
-        if(id == null) {
+        if(isEmpty(id)) {
             throw new ValidationException("The category ID must be informed.");
         }
     }
 
     private void validateCategoryNameInformed(CategoryRequest request) {
-        if(!hasText(request.getDescription())) {
+        if(isEmpty(request.getDescription())) {
             throw new ValidationException("The category description was not informed.");
         }
     }

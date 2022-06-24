@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.springframework.util.StringUtils.hasText;
+import static org.springframework.util.ObjectUtils.isEmpty;
 
 @Service
 public class ProductService {
@@ -40,7 +40,7 @@ public class ProductService {
     }
 
     public List<ProductResponse> findByName(String name) {
-        if(!hasText(name)) {
+        if(isEmpty(name)) {
             throw new ValidationException("The product name must be informed.");
         }
         return productRepository
@@ -120,7 +120,7 @@ public class ProductService {
     }
 
     private void validateProductDataInformed(ProductRequest request) {
-        if(!hasText(request.getName())) {
+        if(isEmpty(request.getName())) {
             throw new ValidationException("The product's name was not informed.");
         }
         if(request.getQuantityAvailable() == null) {
@@ -132,7 +132,7 @@ public class ProductService {
     }
 
     private void validateProductCategoryAndSupplierIdInformed(ProductRequest request) {
-        if(request.getCategoryId() == null) {
+        if(isEmpty(request.getCategoryId())) {
             throw new ValidationException("The category ID was not informed.");
         }
         if(request.getSupplierId() == null) {
@@ -141,7 +141,7 @@ public class ProductService {
     }
 
     private void validateInformedId(Integer id) {
-        if(id == null) {
+        if(isEmpty(id)) {
             throw new ValidationException("The product ID must be informed.");
         }
     }

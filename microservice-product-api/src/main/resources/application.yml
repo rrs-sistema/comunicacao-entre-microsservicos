@@ -25,3 +25,11 @@ spring:
       ddl-auto: create-drop
       format_sql: true
     show_sql: true
+
+app-config:
+
+  services:
+    sales: http://${SALES_HOST:localhost}:${SALES_PORT:8082}
+
+  secrets:
+    api-secret: ${API_SECRET:YXV0aC1hcGktc2VjcmV0LWRldi0xNTMxMTE=}
