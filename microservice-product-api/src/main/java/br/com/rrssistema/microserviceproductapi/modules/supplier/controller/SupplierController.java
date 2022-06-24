@@ -21,6 +21,11 @@ public class SupplierController {
         return supplierService.save(request);
     }
 
+    @PutMapping("{id}")
+    public SupplierResponse update(@RequestBody SupplierRequest request, @PathVariable Integer id) {
+        return supplierService.update(request, id);
+    }
+
     @DeleteMapping("{id}")
     public SuccessResponse delete(@PathVariable Integer id) {
         return supplierService.delete(id);

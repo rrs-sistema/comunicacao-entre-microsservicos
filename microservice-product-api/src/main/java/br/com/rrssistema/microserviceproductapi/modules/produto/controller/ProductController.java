@@ -16,9 +16,14 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @PostMapping("/save")
+    @PostMapping
     private ProductResponse save(@RequestBody ProductRequest request) {
         return productService.save(request);
+    }
+
+    @PutMapping("{id}")
+    public ProductResponse update(@RequestBody ProductRequest request, @PathVariable Integer id) {
+        return productService.update(request, id);
     }
 
     @DeleteMapping("{id}")
@@ -26,7 +31,7 @@ public class ProductController {
         return productService.delete(id);
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<ProductResponse> findAll() {
         return productService.findByAll();
     }
@@ -36,7 +41,7 @@ public class ProductController {
         return productService.findByName(name);
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("{id}")
     public ProductResponse findById(@PathVariable Integer id) {
         return productService.findByIdResponse(id);
     }

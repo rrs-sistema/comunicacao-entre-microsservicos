@@ -18,9 +18,9 @@ import static org.springframework.util.StringUtils.hasText;
 @Service
 public class SupplierService {
     @Autowired
-    private SupplierRepository supplierRepository;
-    @Autowired
     private ProductService productService;
+    @Autowired
+    private SupplierRepository supplierRepository;
 
     public SupplierResponse findByIdResponse(Integer id) {
         return SupplierResponse.of(findById(id));
@@ -58,10 +58,13 @@ public class SupplierService {
         return SupplierResponse.of(supplier);
     }
 
-    private void validateSupplierNameInformed(SupplierRequest request) {
-        if(!hasText(request.getName())) {
-            throw new ValidationException("The supplier's name was not informed.");
-        }
+    public SupplierResponse update(SupplierRequest request, Integer id) {
+        validateSupplierNameInformed(request);
+        validateInformedId(id);
+        var supplier = Supplier.of(request);
+        supplier.setId(id);
+        supplierRepository.save(supplier);
+        return SupplierResponse.of(supplier);
     }
 
     public SuccessResponse delete(Integer id) {
@@ -71,6 +74,12 @@ public class SupplierService {
         }
         supplierRepository.deleteById(id);
         return SuccessResponse.create("The supplier ID must be informed");
+    }
+
+    private void validateSupplierNameInformed(SupplierRequest request) {
+        if(!hasText(request.getName())) {
+            throw new ValidationException("The supplier's name was not informed.");
+        }
     }
 
     private void validateInformedId(Integer id) {

@@ -91,17 +91,32 @@ public class ProductService {
         return ProductResponse.of(product);
     }
 
+    public ProductResponse update(ProductRequest request, Integer id) {
+        validateProductDataInformed(request);
+        validateProductCategoryAndSupplierIdInformed(request);
+        validateInformedId(id);
+
+        var supplier = supplierService.findById(request.getSupplierId());
+        var category = categoryService.findById(request.getCategoryId());
+
+        var productRequest = Product.of(request, supplier, category);
+        productRequest.setId(id);
+        var product  = productRepository.save(productRequest);
+        return ProductResponse.of(product);
+    }
+
     public SuccessResponse delete(Integer id) {
         validateInformedId(id);
         productRepository.deleteById(id);
         return SuccessResponse.create("The product ID must be informed");
     }
 
-    public Boolean existsByCategoryId(Integer id) {
-        return productRepository.existsByCategoryId(id);
+    public Boolean existsByCategoryId(Integer categoryId) {
+        return productRepository.existsByCategoryId(categoryId);
     }
-    public Boolean existsBySupplierId(Integer id) {
-        return productRepository.existsBySupplierId(id);
+
+    public Boolean existsBySupplierId(Integer supplierId) {
+        return productRepository.existsBySupplierId(supplierId);
     }
 
     private void validateProductDataInformed(ProductRequest request) {
