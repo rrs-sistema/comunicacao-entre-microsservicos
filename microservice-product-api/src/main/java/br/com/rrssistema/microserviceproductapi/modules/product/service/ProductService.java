@@ -3,12 +3,10 @@ package br.com.rrssistema.microserviceproductapi.modules.product.service;
 import br.com.rrssistema.microserviceproductapi.config.exception.SuccessResponse;
 import br.com.rrssistema.microserviceproductapi.config.exception.ValidationException;
 import br.com.rrssistema.microserviceproductapi.modules.category.service.CategoryService;
-import br.com.rrssistema.microserviceproductapi.modules.product.dto.ProductQuantityDTO;
-import br.com.rrssistema.microserviceproductapi.modules.product.dto.ProductRequest;
-import br.com.rrssistema.microserviceproductapi.modules.product.dto.ProductResponse;
-import br.com.rrssistema.microserviceproductapi.modules.product.dto.ProductStockDTO;
+import br.com.rrssistema.microserviceproductapi.modules.product.dto.*;
 import br.com.rrssistema.microserviceproductapi.modules.product.model.Product;
 import br.com.rrssistema.microserviceproductapi.modules.product.repository.ProductRepository;
+import br.com.rrssistema.microserviceproductapi.modules.sales.client.SalesClient;
 import br.com.rrssistema.microserviceproductapi.modules.sales.dto.SalesConfirmationDTO;
 import br.com.rrssistema.microserviceproductapi.modules.sales.enums.SalesStatus;
 import br.com.rrssistema.microserviceproductapi.modules.sales.rabbitmq.SalesConfirmationSender;
@@ -35,9 +33,10 @@ public class ProductService {
     private SupplierService supplierService;
     @Autowired
     private CategoryService categoryService;
-
     @Autowired
     private SalesConfirmationSender salesConfirmationSender;
+    @Autowired
+    private SalesClient salesClient;
 
     public ProductResponse findByIdResponse(Integer id) {
         return ProductResponse.of(findById(id));
@@ -206,6 +205,38 @@ public class ProductService {
         if(salesProduct.getQuantity() > existingProduct.getQuantityAvailable()) {
             throw new ValidationException(
                     String.format("The product %s stock cannot be updated.", existingProduct.getId()));
+        }
+    }
+
+    public ProductSalesResponse findProductSales(Integer id) {
+        var product = findById(id);
+        try {
+            var sales = salesClient
+                    .findSalesByProductId(product.getId())
+                    .orElseThrow(() -> new ValidationException("The sales was not found by this product."));
+            return ProductSalesResponse.of(product, sales.getSalesIds());
+        } catch (Exception ex) {
+            throw new ValidationException("There was an error trying to get the product's sales.");
+        }
+    }
+
+    public SuccessResponse checkProductsStock(ProductCheckStockRequest request) {
+        if(isEmpty(request) || isEmpty(request.getProducts())) {
+            throw new ValidationException("The request data and products must be informed");
+        }
+        request
+                .getProducts()
+                .forEach(this::validateStock);
+        return SuccessResponse.create("The stock is ok!");
+    }
+
+    private void validateStock(ProductQuantityDTO productQuantity) {
+        if(isEmpty(productQuantity.getProductId()) || isEmpty(productQuantity.getQuantity())) {
+            throw new ValidationException("Product ID and quantity must be informed.");
+        }
+        var product = findById(productQuantity.getProductId());
+        if(productQuantity.getQuantity() > product.getQuantityAvailable()) {
+            throw new ValidationException(String.format("The product %s is out of stock.", product.getId()));
         }
     }
 }
