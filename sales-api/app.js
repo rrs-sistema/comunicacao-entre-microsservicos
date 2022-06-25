@@ -5,6 +5,7 @@ import OrderRoutes from "./src/modules/sales/routes/OrderRoutes.js";
 import { createInitialData } from './src/config/db/initialData.js';
 import { connectMongoDb } from "./src/config/db/mongoDbConfig.js";
 import checkToken from "./src/config/auth/checkToken.js";
+import trancing from './src/config/trancing.js';
 
 const app = express();
 const env = process.env;
@@ -15,6 +16,7 @@ createInitialData();
 connectRabbitMq();
 
 app.use(express.json());
+app.use(trancing);
 app.use(checkToken);
 app.use(OrderRoutes);
 

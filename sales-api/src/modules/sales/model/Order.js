@@ -23,7 +23,15 @@ const OrderSchema = new Schema({
     updatedAt: {
         type: Date,
         require: true,
-    }   
+    },
+    transactionid: {
+        type: String,
+        require: true,
+    },
+    serviceid: {
+        type: String,
+        require: true,
+    }        
 });
 
 export default model("Order", OrderSchema);
