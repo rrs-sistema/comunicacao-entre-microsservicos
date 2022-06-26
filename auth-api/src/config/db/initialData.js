@@ -1,6 +1,6 @@
-import bcrypt from "bcrypt";
-
 import User from "../../modules/user/model/User.js";
+
+import bcrypt from 'bcrypt';
 
 export async function createInitialData() {
     try {
@@ -18,9 +18,7 @@ export async function createInitialData() {
             email: 'kamilly.ke@gmail.com',
             password: password
         });        
-    } catch (error) {
-        console.log(error);
-        const status = err.status ? err.status : httpStatus.INTERNAL_SERVER_ERROR;
-        return res.status(status).json({status, message: err.message});         
+    } catch (err) {
+        console.log(err); 
     }
 }
