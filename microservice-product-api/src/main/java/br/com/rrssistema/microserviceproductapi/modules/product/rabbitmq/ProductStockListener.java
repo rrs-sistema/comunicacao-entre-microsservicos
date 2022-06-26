@@ -15,14 +15,12 @@ public class ProductStockListener {
 
     @Autowired
     private ProductService productService;
-
     @RabbitListener(queues = "${app-config.rabbit.queue.product-stock}")
-    public void receiveProductStockMessage(ProductStockDTO product) {
-        try {
-            log.info("Recebendo mensagem: {}", new ObjectMapper().writeValueAsString(product));
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+    public void receiveProductStockMessage(ProductStockDTO product) throws JsonProcessingException {
+        log.info("Receiving message with data: {} and TransactionID: {}",
+                new ObjectMapper().writeValueAsString(product),
+                product.getTransactionid());
         productService.updateProductStock(product);
     }
+
 }
