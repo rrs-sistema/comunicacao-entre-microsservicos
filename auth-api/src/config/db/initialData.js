@@ -21,6 +21,6 @@ export async function createInitialData() {
     } catch (error) {
         console.log(error);
         const status = err.status ? err.status : httpStatus.INTERNAL_SERVER_ERROR;
-        return res.status(status).json({status, message: err.message});          
+        return res.status(status).json({status, message: err.message});         
     }
 }
