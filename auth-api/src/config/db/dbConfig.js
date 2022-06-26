@@ -4,8 +4,8 @@ import { DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD } from '../constants/se
 
 const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
     host: DB_HOST,
-    dialect: 'postgres',
     port: DB_PORT,
+    dialect: "postgres",
     quoteIdentifiers: false,
     define: {
       syncOnAssociation: true,
@@ -13,8 +13,11 @@ const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
       underscored: true,
       underscoredAll: true,
       freezeTableName: true,
-    },    
-});
+    },
+    pool: {
+      acquire: 180000,
+    },
+  });
 
 sequelize
 .authenticate()

@@ -1,7 +1,7 @@
 import express from "express";
 
 import { connectRabbitMq } from './src/config/rabbitmq/rabbitConfig.js';
-import OrderRoutes from "./src/modules/sales/routes/OrderRoutes.js";
+import orderRoutes from "./src/modules/sales/routes/OrderRoutes.js";
 import { createInitialData } from './src/config/db/initialData.js';
 import { connectMongoDb } from "./src/config/db/mongoDbConfig.js";
 import checkToken from "./src/config/auth/checkToken.js";
@@ -10,24 +10,44 @@ import trancing from './src/config/trancing.js';
 const app = express();
 const env = process.env;
 const PORT = env.PORT || 8082;
+const CONTAINER_ENV = "container";
+const THREE_MINUTES = 180000;
 
-connectMongoDb();
-createInitialData();
-connectRabbitMq();
+startApplication();
+
+async function startApplication() {
+  if (CONTAINER_ENV === env.NODE_ENV) {
+    console.info("Waiting for RabbitMQ and MongoDB containers to start...");
+    setInterval(() => {
+      connectMongoDb();
+      connectRabbitMq();
+    }, THREE_MINUTES);
+  } else {
+    connectMongoDb();
+    createInitialData();
+    connectRabbitMq();
+  }
+}
 
 app.use(express.json());
+
+app.get("/api/initial-data", async (req, res) => {
+  await createInitialData();
+  return res.json({ message: "Data created." });
+});
+
 app.use(trancing);
 app.use(checkToken);
-app.use(OrderRoutes);
+app.use(orderRoutes);
 
-app.get('/api/status', async (req, res)=> {
-    return res.status(200).json({
-        service: 'Sales-API',
-        status: 'UP',
-        httpStatus: 200
-    });
+app.get("/api/status", async (req, res) => {
+  return res.status(200).json({
+    service: "Sales-API",
+    status: "up",
+    httpStatus: 200,
+  });
 });
 
 app.listen(PORT, () => {
-    console.log(`Server started sucessfully at port ${PORT}`);
+  console.info(`Server started successfully at port ${PORT}`);
 });
