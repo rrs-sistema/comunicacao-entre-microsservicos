@@ -9,7 +9,7 @@ services:
       - sales-network
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=153111
+      - MONGO_INITDB_ROOT_PASSWORD=123456
     ports:
       - 27017:27017
       - 28017:28017
@@ -91,7 +91,7 @@ services:
     environment:
       - PORT=8082
       - API_SECRET=YXV0aC1hcGktc2VjcmV0LWNvbnRhaW5lci1MQTE1Y28xMA==
-      - MONGO_DB_URL=mongodb://sales-db:27017/sales
+      - MONGO_DB_URL=mongodb://sales-db:27017/sales-db
       - RABBIT_MQ_URL=amqp://guest:guest@sales_rabbit:5672/
       - PRODUCT_API_URL=http://product-api:8081/api/product
       - NODE_ENV=container
