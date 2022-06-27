@@ -7,7 +7,9 @@ services:
     restart: always
     networks:
       - sales-network
-
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=153111
     ports:
       - 27017:27017
       - 28017:28017

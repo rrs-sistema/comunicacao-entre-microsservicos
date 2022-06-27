@@ -3,7 +3,12 @@ import { v4 as uuidv4 } from 'uuid';
 import Order from "../../modules/sales/model/Order.js";
 
 export async function createInitialData() {
-    await Order.collection.drop();
+
+    let existingData = await Order.find();
+    if(existingData && existingData.length > 0){
+        console.info('Remove existing data...');
+        await Order.collection.drop();
+    }
 
     await Order.create({
         products: [
